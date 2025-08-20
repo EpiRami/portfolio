@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Generative AI for Work & Research — Portfolio | Rami Malaeb</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-2: #0e1429;
+      --text: #E8ECF6;
+      --muted: #B6C0D9;
+      --primary: #8AB4FF;
+      --accent: #80FFEA;
+      --rose: #FF7AB6;
+      --amber: #FFD18C;
+      --card: #121833;
+      --border: #243055;
+      --success: #7AE582;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --maxw: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; color: var(--text); background: radial-gradient(1200px 800px at 15% -10%, #1b2a6b55, transparent 60%), radial-gradient(900px 700px at 110% 10%, #24545a55, transparent 60%), linear-gradient(180deg, var(--bg), var(--bg-2) 55%);
+      line-height: 1.6; }
+
+    /* Decorative gradient blobs */
+    .blob { position: fixed; inset: auto auto 10% -10%; width: 60vmax; height: 60vmax; filter: blur(60px); opacity: .25; z-index: -1; background: conic-gradient(from 180deg at 50% 50%, #5a84ff33, #79ffe533, #ff77b833, #ffd18c33, #5a84ff33); animation: spin 40s linear infinite; }
+    .blob.bl2 { inset: -20% -20% auto auto; width: 70vmax; height: 70vmax; animation-direction: reverse; }
+    @keyframes spin { to { transform: rotate(1turn); } }
+
+    /* Header / Nav */
+    .topbar { position: sticky; top: 0; backdrop-filter: saturate(140%) blur(10px); background: linear-gradient(180deg, rgba(5,8,18,.9), rgba(5,8,18,.65)); border-bottom: 1px solid #0f1a33; z-index: 20; }
+    .nav { max-width: var(--maxw); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .2px; }
+    .brand .logo { width: 34px; height: 34px; border-radius: 10px; background: linear-gradient(135deg, var(--primary), var(--rose)); display: grid; place-items: center; box-shadow: 0 8px 24px #5c8aff44; }
+    .brand .logo svg { width: 20px; height: 20px; }
+    .nav a { color: var(--muted); text-decoration: none; font-weight: 500; margin-left: 18px; padding: 8px 10px; border-radius: 10px; border: 1px solid transparent; }
+    .nav a:hover, .nav a.active { color: var(--text); border-color: #223055; background: #0e1733; }
+
+    /* Layout helpers */
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+    section { padding: 80px 0; position: relative; }
+    .eyebrow { color: var(--amber); letter-spacing: .16em; font-size: .78rem; font-weight: 700; text-transform: uppercase; }
+    h1, h2, h3 { line-height: 1.2; margin: 10px 0 14px; }
+    h1 { font-size: clamp(2.1rem, 4.2vw, 3.4rem); font-weight: 900; }
+    h2 { font-size: clamp(1.6rem, 2.6vw, 2.2rem); font-weight: 800; }
+    p.lead { font-size: clamp(1.05rem, 1.4vw, 1.18rem); color: var(--muted); max-width: 72ch; }
+
+    /* Hero */
+    .hero { padding: 90px 0 70px; }
+    .hero .badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; background: linear-gradient(90deg, #132757, #0e203f); border: 1px solid #20305c; color: var(--muted); font-size: .9rem; }
+    .hero .title { background: linear-gradient(90deg, #e8ecf6, #b7c6ff 45%, #9df7e9 90%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .cta { display: flex; gap: 14px; margin-top: 26px; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 14px; font-weight: 700; text-decoration: none; border: 1px solid #2a3663; color: var(--text); box-shadow: var(--shadow); }
+    .btn.primary { background: linear-gradient(135deg, #2a58ff, #38c9b6); }
+    .btn.ghost { background: #0f1836; }
+
+    /* Cards */
+    .grid { display: grid; gap: 22px; }
+    .grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .card { background: linear-gradient(180deg, #111938, #0f1633); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); }
+    .card h3 { margin-top: 6px; font-size: 1.15rem; }
+    .card p { color: var(--muted); }
+    .chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; border: 1px solid #2b3a6b; background: #121c46; font-size: .86rem; color: var(--muted); margin: 6px 6px 0 0; }
+
+    /* Timeline (Submissions) */
+    .timeline { position: relative; margin-top: 10px; }
+    .timeline::before { content: ""; position: absolute; left: 12px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, #274081, #1a2b59); opacity: .6; }
+    .milestone { position: relative; margin-left: 32px; background: #10173a; border: 1px solid #233160; border-radius: var(--radius-sm); padding: 16px 16px 12px; margin-bottom: 14px; }
+    .milestone::before { content: ""; position: absolute; left: -24px; top: 16px; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #9df7e9, #2f74ff); box-shadow: 0 0 0 4px rgba(47,116,255,.15), 0 0 18px #2f74ff66; }
+    .milestone h4 { margin: 0 0 6px; font-size: 1.05rem; }
+    .milestone .meta { color: var(--muted); font-size: .9rem; }
+    .milestone a { color: var(--primary); text-decoration: none; font-weight: 600; }
+
+    /* Footer */
+    footer { padding: 50px 0; border-top: 1px solid #16254c; background: linear-gradient(180deg, #0b122e, #0a1229); color: var(--muted); }
+    .credit { font-size: .92rem; }
+
+    /* Utilities */
+    .muted { color: var(--muted); }
+    .sep { height: 1px; background: linear-gradient(90deg, transparent, #223055, transparent); margin: 30px 0; }
+
+    /* Small screens */
+    @media (max-width: 560px) {
+      .nav a { margin-left: 8px; }
+      .hero { padding-top: 70px; }
+    }
+  
+    /* Inspired split hero layout */
+    .hero-split { display: grid; grid-template-columns: 360px 1fr; gap: 28px; align-items: center; }
+    .profile-card { position: relative; border-radius: var(--radius); padding: 18px; background: linear-gradient(160deg, #5a2dc2, #3b1d82 65%); border: 1px solid #5a48a5; box-shadow: var(--shadow); min-height: 520px; }
+    .profile-card::before { content: ""; position: absolute; left: -18px; top: 40px; width: 180px; height: 260px; background: linear-gradient(160deg, #7b50ff, #9c6bff); opacity: .25; transform: rotate(-8deg); border-radius: 16px; filter: blur(1px); }
+    .avatar { position: relative; height: 420px; border-radius: 16px; background: radial-gradient(120px 120px at 30% 25%, #ffffff22, transparent 60%), linear-gradient(160deg, #2b1f69, #1a1342); border: 1px solid #6b59c0; display: grid; place-items: center; overflow: hidden; }
+    .avatar .initials { font-size: 4rem; font-weight: 900; letter-spacing: .04em; color: #d9d1ff; text-shadow: 0 6px 24px #00000066; }
+    .mini { margin-top: 14px; }
+    .mini h3 { margin: 0 0 4px; font-size: 1.15rem; }
+    .mini p { margin: 0; color: #d5cfff; opacity: .85; }
+
+    .hello { color: var(--amber); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; font-size: .82rem; }
+    .bigname { font-size: clamp(2.2rem, 4.8vw, 3.2rem); margin: 8px 0 10px; font-weight: 900; background: linear-gradient(90deg, #ffffff, #b7c6ff 50%, #9df7e9); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .sublead { color: var(--muted); max-width: 64ch; }
+
+    /* Floating quick actions (right rail) */
+    .quick-rail { position: fixed; right: 18px; top: 40%; transform: translateY(-40%); display: flex; flex-direction: column; gap: 10px; z-index: 50; }
+    .quick-rail a { width: 44px; height: 44px; border-radius: 999px; background: #0f1836; border: 1px solid #26346a; display: grid; place-items: center; text-decoration: none; color: var(--text); box-shadow: 0 10px 18px #00000055; }
+    .quick-rail a:hover { background: linear-gradient(140deg, #2a58ff, #9b5bff); }
+    .quick-rail svg { width: 20px; height: 20px; opacity: .9; }
+
+    @media (max-width: 980px) {
+      .hero-split { grid-template-columns: 1fr; }
+      .profile-card { min-height: 420px; }
+      .avatar { height: 320px; }
+      .quick-rail { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob"></div>
+  <div class="blob bl2"></div>
+
+  <header class="topbar">
+    <div class="nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <!-- simple spark icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v6M12 16v6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M16 12h6M4.93 19.07l4.24-4.24M14.83 9.17l4.24-4.24"/></svg>
+        </div>
+        <span>Generative AI for Work & Research</span>
+      </div>
+      <nav>
+        <a href="#about-me">About me</a>
+        <a href="#about-course">About the course</a>
+        <a href="#submissions">Weekly submissions</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap hero-split">
+        <!-- Left: profile card inspired by reference layout -->
+        <aside class="profile-card" aria-label="Profile preview">
+          <div class="avatar" aria-hidden="true">
+            <span class="initials">RM</span>
+          </div>
+          <div class="mini">
+            <h3>Rami Malaeb</h3>
+            <p>Regional Epidemiologist · Epicentre (MSF)</p>
+          </div>
+        </aside>
+
+        <!-- Right: headline & actions -->
+        <div>
+          <span class="hello">Hello,</span>
+          <h1 class="bigname">I'm Rami — building practical systems for AI‑assisted work & research.</h1>
+          <p class="sublead">This portfolio documents my progress in the <strong>Generative AI for Work & Research</strong> cohort—covering literature pipelines, automated analysis, custom chatbots, and communication workflows. Clean, reproducible, and applied to real research problems.</p>
+          <div class="cta" style="margin-top: 24px;">
+            <a class="btn primary" href="#about-me">More about me</a>
+            <a class="btn ghost" href="#submissions">View weekly submissions</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right rail quick actions (placeholders; add links later) -->
+      <div class="quick-rail" aria-label="Quick links">
+        <a href="#about-me" title="About">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+        <a href="#submissions" title="Submissions">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        </a>
+        <a href="#about-course" title="About the course">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6"/><path d="M20 22H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h7l2 2h7a2 2 0 0 1 2 2z"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- About Me -->
+    <section id="about-me">
+      <div class="wrap">
+        <span class="eyebrow">About me</span>
+        <h2>Rami Malaeb — Regional Epidemiologist & Researcher</h2>
+        <p class="lead">Regional Epidemiologist at <strong>Epicentre / Médecins Sans Frontières (MSF)</strong>, supporting operations across the Middle East since 2017. Experienced in disease surveillance, operational research, and scientific communication. Background includes MSc in Epidemiology & Biostatistics and extensive field experience in emergency and humanitarian contexts.</p>
+        <div class="grid cols-3" style="margin-top: 26px;">
+          <article class="card">
+            <span class="eyebrow">Current focus</span>
+            <h3>Operational epidemiology</h3>
+            <p>Designing and supporting surveillance systems, leading hospital‑ and population‑based studies, and translating evidence into action for MSF missions.</p>
+            <div>
+              <span class="chip">Surveillance</span>
+              <span class="chip">Operational research</span>
+              <span class="chip">Scientific training</span>
+            </div>
+          </article>
+          <article class="card">
+            <span class="eyebrow">Skills & tools</span>
+            <h3>Methods & technology</h3>
+            <p>R, STATA, SAS; geospatial analysis with QGIS; data pipelines with ODK/Kobo/REDCap; dashboards & reporting; DHIS2 data management.</p>
+            <div>
+              <span class="chip">R / STATA / SAS</span>
+              <span class="chip">QGIS</span>
+              <span class="chip">ODK / Kobo / REDCap</span>
+              <span class="chip">DHIS2</span>
+            </div>
+          </article>
+          <article class="card">
+            <span class="eyebrow">Languages</span>
+            <h3>Multilingual communicator</h3>
+            <p>Arabic (native), English (fluent), French (intermediate).</p>
+            <div>
+              <span class="chip">Arabic</span>
+              <span class="chip">English</span>
+              <span class="chip">French</span>
+            </div>
+          </article>
+        </div>
+        <div class="grid cols-2" style="margin-top: 22px;">
+          <article class="card">
+            <span class="eyebrow">Selected research & presentations</span>
+            <h3>Highlights</h3>
+            <ul class="muted">
+              <li>High seroprevalence study among healthcare workers in Aden, Yemen (under peer review).</li>
+              <li>War‑wounded cohorts & neonatal care studies presented at Epicentre Scientific Day and MSF Pediatric Days.</li>
+              <li>Social Impact Leaders webinar at NYU Abu Dhabi on MSF’s COVID‑19 response.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <span class="eyebrow">Education & training</span>
+            <h3>Academic background</h3>
+            <ul class="muted">
+              <li>MSc Epidemiology & Biostatistics (with distinction).</li>
+              <li>BSc Public Health & Development Sciences.</li>
+              <li>Certificates: SIR modeling, QGIS, Disaster Management, First Aid.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="sep"></div>
+
+    <!-- About the Course -->
+    <section id="about-course">
+      <div class="wrap">
+        <span class="eyebrow">About the course</span>
+        <h2>Generative AI for Work & Research — 8‑Week Live Cohort</h2>
+        <p class="lead">A hands‑on bootcamp by GRAPH Courses (University of Geneva) that blends academic rigor with practical AI skills. Emphasis on no‑code tools, reproducible workflows, and a capstone project.</p>
+
+        <div class="grid cols-3" style="margin-top: 18px;">
+          <article class="card">
+            <span class="eyebrow">Bootcamp features</span>
+            <h3>Learning experience</h3>
+            <ul class="muted">
+              <li>Weekly live workshops & help sessions</li>
+              <li>Private community & personalized feedback</li>
+              <li>Capstone coaching & lifetime tutorial library</li>
+              <li>Shareable certificate</li>
+            </ul>
+          </article>
+          <article class="card">
+            <span class="eyebrow">Assessment</span>
+            <h3>Grading rubric</h3>
+            <ul class="muted">
+              <li>Online quizzes — 15%</li>
+              <li>Workshop assignments — 35%</li>
+              <li>Attendance & participation — 10%</li>
+              <li>Final project — 40%</li>
+              <li class="muted">Passing: 80% • Attend ≥5 workshops</li>
+            </ul>
+          </article>
+          <article class="card">
+            <span class="eyebrow">Why this course</span>
+            <h3>Applied & affordable</h3>
+            <p class="muted">Non‑profit program with a supportive ecosystem—mentors, peer feedback, and real‑world AI projects grounded in research practice.</p>
+          </article>
+        </div>
+
+        <h3 style="margin-top:34px">Modules overview</h3>
+        <div class="grid cols-2" style="margin-top: 10px;">
+          <article class="card">
+            <span class="eyebrow">Module 1</span>
+            <h3>Websites, documents & presentations</h3>
+            <p class="muted">How LLMs work; generating Markdown/LaTeX/HTML; building simple research websites; structured docs; AI‑assisted scientific slides/posters.</p>
+          </article>
+          <article class="card">
+            <span class="eyebrow">Module 2</span>
+            <h3>AI‑automated data analysis</h3>
+            <p class="muted">Rapid analysis with Code Interpreter; automated dashboards; dataset transformation; batch file processing; automated reports & viz; spreadsheet automations.</p>
+          </article>
+          <article class="card">
+            <span class="eyebrow">Module 3</span>
+            <h3>GenAI for research & text analysis</h3>
+            <p class="muted">Efficient literature reviews (Elicit/LiteRev); text classification; sentiment & trend analysis; knowledge maps; summarization pipelines; synthesis systems.</p>
+          </article>
+          <article class="card">
+            <span class="eyebrow">Module 4</span>
+            <h3>Custom GPTs & chatbots</h3>
+            <p class="muted">Context windows, RAG; custom GPTs; Botpress chatbots; integrating knowledge bases into research workflows.</p>
+          </article>
+          <article class="card">
+            <span class="eyebrow">Module 5</span>
+            <h3>AI for task automation</h3>
+            <p class="muted">Agent‑based systems; email response automations; browser control agents; orchestration of complex flows.</p>
+          </article>
+          <article class="card">
+            <span class="eyebrow">Module 6</span>
+            <h3>GenAI for communication & outreach</h3>
+            <p class="muted">AI‑generated summaries; scientific figures & diagrams; video abstracts; visualization prompts; content scheduling.</p>
+          </article>
+          <article class="card">
+            <span class="eyebrow">Module 7</span>
+            <h3>Capstone & showcase</h3>
+            <p class="muted">Project checkpoints, peer feedback, final presentations, and public Q&A.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="sep"></div>
+
+    <!-- Weekly Submissions -->
+    <section id="submissions">
+      <div class="wrap">
+        <span class="eyebrow">My weekly submissions</span>
+        <h2>Artifacts from each week</h2>
+        <p class="lead">Links will be added as deliverables are finalized. For now, placeholders indicate scope and expected outputs.</p>
+        <div class="timeline">
+          <!-- 8 weeks placeholders -->
+          <div class="milestone">
+            <h4>Week 1 — Research website & structured docs</h4>
+            <div class="meta">Status: <strong>Placeholder</strong> • Deliverables: simple site, Markdown/LaTeX/HTML samples</div>
+          </div>
+          <div class="milestone">
+            <h4>Week 2 — Automated data analysis</h4>
+            <div class="meta">Status: <strong>Placeholder</strong> • Deliverables: Code Interpreter notebook, automated dashboard</div>
+          </div>
+          <div class="milestone">
+            <h4>Week 3 — Literature pipelines & text analytics</h4>
+            <div class="meta">Status: <strong>Placeholder</strong> • Deliverables: Elicit/LiteRev results, topic map, summaries</div>
+          </div>
+          <div class="milestone">
+            <h4>Week 4 — Custom GPT / RAG assistant</h4>
+            <div class="meta">Status: <strong>Placeholder</strong> • Deliverables: prototype chatbot, retrieval evaluation notes</div>
+          </div>
+          <div class="milestone">
+            <h4>Week 5 — Automation flows</h4>
+            <div class="meta">Status: <strong>Placeholder</strong> • Deliverables: email automation, browser agent demo</div>
+          </div>
+          <div class="milestone">
+            <h4>Week 6 — Communication & outreach</h4>
+            <div class="meta">Status: <strong>Placeholder</strong> • Deliverables: figures, video abstract draft, content calendar</div>
+          </div>
+          <div class="milestone">
+            <h4>Week 7 — Capstone development</h4>
+            <div class="meta">Status: <strong>Placeholder</strong> • Deliverables: progress report, peer feedback log</div>
+          </div>
+          <div class="milestone">
+            <h4>Week 8 — Showcase</h4>
+            <div class="meta">Status: <strong>Placeholder</strong> • Deliverables: final project, presentation deck</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p class="credit">© <span id="y"></span> Rami Malaeb. Portfolio site for the “Generative AI for Work & Research” course. No public email displayed.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Active nav state on scroll
+    const links = [...document.querySelectorAll('.nav a')];
+    const sections = links.map(a => document.querySelector(a.getAttribute('href')));
+    const yel = document.getElementById('y'); yel.textContent = new Date().getFullYear();
+
+    const onScroll = () => {
+      const y = window.scrollY + 120; // offset for sticky header
+      sections.forEach((sec, i) => {
+        const r = sec.getBoundingClientRect();
+        const top = window.scrollY + r.top; const bottom = top + sec.offsetHeight;
+        if (y >= top && y < bottom) {
+          links.forEach(l => l.classList.remove('active'));
+          links[i].classList.add('active');
+        }
+      });
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>
