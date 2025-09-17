@@ -200,6 +200,13 @@
     /* subtle inner separator */
     .micro-sep { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent); margin: 18px 0 16px; }
     body.alt .micro-sep { background: linear-gradient(90deg, transparent, #e6ecf5, transparent); }
+  
+    /* Contact section / embedded form */
+    #contact .lead { max-width: 70ch; }
+    .form-card { background: linear-gradient(180deg, #111938, #0f1633); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); }
+    .form-embed { width: 100%; height: 820px; border: 0; border-radius: 12px; background: #fff; }
+
+    body.alt .form-card { background: #ffffff; border: 1px solid #e6ecf5; }
   </style>
 </head>
 <body>
@@ -219,6 +226,7 @@
         <a href="#about-me">About me</a>
         <a href="#about-course">About the course</a>
         <a href="#submissions">Weekly submissions</a>
+        <a href="#contact">Contact</a>
         <button id="themeToggle" class="btn ghost small" type="button" title="Switch theme">Clean Light</button>
       </nav>
     </div>
@@ -435,6 +443,19 @@
         </div>
       </div>
     </section>
+
+    <!-- Contact for Consultation -->
+    <section id="contact">
+      <div class="wrap">
+        <span class="eyebrow">Contact for Consultation</span>
+        <h2>Book a consultation</h2>
+        <p class="lead">Use the form below to request a consultation. I will follow up with available slots and next steps.</p>
+        <div class="form-card" style="margin-top:16px;">
+          <iframe class="form-embed" src="https://docs.google.com/forms/d/e/1FAIpQLScRnfS8sI5RLySxAiamzoxbUvuRgo7Un1OiyZ6WIXGUXl2mJg/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <footer>
@@ -542,3 +563,4 @@
 </script>
 </body>
 </html>
+
