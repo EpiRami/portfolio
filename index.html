@@ -156,6 +156,50 @@
     .modal-card img { display: block; max-width: 88vw; max-height: 78vh; border-radius: 14px; }
     .modal-close { position: absolute; top: 8px; right: 8px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid #2a3663; background: #0f1836; color: var(--text); font-size: 18px; line-height: 1; cursor: pointer; }
     .modal-close:hover { background: linear-gradient(140deg, #2a58ff, #9b5bff); }
+  
+    /* ---- Theme toggle button ---- */
+    .btn.small { padding: 8px 12px; font-size: .9rem; border-radius: 10px; }
+
+    /* ---- Alternate style inspired by clean card layout ---- */
+    body.alt { color: #151826; background: linear-gradient(180deg, #f7f9fc, #eef2f9 60%, #eaf0fb); }
+    body.alt .blob { display: none; }
+    body.alt .topbar { background: rgba(255,255,255,.82); border-bottom: 1px solid #e6ecf5; }
+    body.alt .brand .logo { background: linear-gradient(135deg, #6b8cff, #9b5bff); box-shadow: 0 8px 24px #7a8dff33; }
+    body.alt .nav a { color: #445271; border-color: transparent; }
+    body.alt .nav a:hover, body.alt .nav a.active { color: #0d1834; background: #f2f5fb; border-color: #e3e9f5; }
+
+    body.alt .hero { padding: 70px 0 40px; }
+    body.alt .hero-split { grid-template-columns: 1fr; gap: 18px; text-align: center; }
+    body.alt .profile-card { min-height: auto; background: #ffffff; border: 1px solid #e6ecf5; }
+    body.alt .avatar { height: 220px; margin: 0 auto; background: #f2f5fb; border: 1px solid #e6ecf5; }
+    body.alt .mini h3, body.alt .mini p { color: #1a2240; }
+    body.alt .hello { color: #6b7cff; }
+    body.alt .bigname { background: linear-gradient(90deg, #0f1430, #3a3f55); -webkit-background-clip: text; color: transparent; }
+    body.alt .sublead { color: #4a587a; margin: 0 auto; }
+    body.alt .quick-rail { display: none; }
+
+    body.alt .card { background: #ffffff; border: 1px solid #e6ecf5; }
+    body.alt .chip { background: #f5f7fd; border-color: #e6ecf5; color: #405078; }
+
+    body.alt .btn.ghost { background: #ffffff; color: #1a2240; border-color: #e1e8f5; }
+    body.alt .btn.primary { background: linear-gradient(135deg, #6b8cff, #6bd6c6); color: #fff; }
+
+    /* Transform timeline into cards */
+    body.alt .timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 18px; }
+    body.alt .milestone { margin: 0; padding: 16px; background: #ffffff; border: 1px solid #e6ecf5; border-radius: 14px; }
+    body.alt .milestone::before { display: none; }
+    body.alt .milestone h4 { color: #111a36; }
+    body.alt .milestone .meta { color: #4b5a7c; }
+
+    body.alt .sep { background: linear-gradient(90deg, transparent, #e3e9f5, transparent); }
+    body.alt footer { background: #f5f7fb; border-top: 1px solid #e6ecf5; color: #5a6b87; }
+  
+    .about-intro{ margin: 8px 0 14px; }
+    .bigname--sm{ font-size: clamp(1.6rem, 2.6vw, 2.2rem); margin: 4px 0 6px; }
+  
+    /* subtle inner separator */
+    .micro-sep { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent); margin: 18px 0 16px; }
+    body.alt .micro-sep { background: linear-gradient(90deg, transparent, #e6ecf5, transparent); }
   </style>
 </head>
 <body>
@@ -175,6 +219,7 @@
         <a href="#about-me">About me</a>
         <a href="#about-course">About the course</a>
         <a href="#submissions">Weekly submissions</a>
+        <button id="themeToggle" class="btn ghost small" type="button" title="Switch theme">Clean Light</button>
       </nav>
     </div>
   </header>
@@ -192,8 +237,6 @@
           </div>
         </div>
         <span class="hello">Hello,</span>
-        <h1 class="bigname">I'm Rami — building practical systems for AI‑assisted work & research.</h1>
-        <p class="sublead">This portfolio documents my progress in the <strong>Generative AI for Work & Research</strong> cohort—covering literature pipelines, automated analysis, custom chatbots, and communication workflows. Clean, reproducible, and applied to real research problems.</p>
         <div class="cta" style="margin-top: 24px;">
           <a class="btn primary" href="#about-me">More about me</a>
           <a class="btn ghost" href="#submissions">View weekly submissions</a>
@@ -205,8 +248,11 @@
     <section id="about-me">
       <div class="wrap">
         <span class="eyebrow">About me</span>
-        <h2>Rami Malaeb — Regional Epidemiologist & Researcher</h2>
-        <p class="lead">Regional Epidemiologist at <strong>Epicentre / Médecins Sans Frontières (MSF)</strong>, supporting operations across the Middle East since 2017. Experienced in disease surveillance, operational research, and scientific communication. Background includes MSc in Epidemiology & Biostatistics and extensive field experience in emergency and humanitarian contexts.</p>
+        <h2>Rami Malaeb — Epidemiologist & PhD Researcher</h2>
+        <p class="lead">Epidemiologist at <strong>Epicentre / Médecins Sans Frontières (MSF)</strong>, supporting operations across the Middle East since 2017. Experienced in disease surveillance, operational research, and scientific communication. Background includes MSc in Epidemiology &amp; Biostatistics and extensive field experience in emergency and humanitarian contexts.</p>
+        <div class="micro-sep"></div>
+        <p class="sublead">I'm currently learning to build practical systems for AI‑assisted work &amp; research.</p>
+        <p class="sublead">This portfolio documents my progress in the <strong>Generative AI for Work &amp; Research</strong> cohort—covering literature pipelines, automated analysis, custom chatbots, and communication workflows. Clean, reproducible, and applied to real research problems.</p>
         <div class="grid cols-3" style="margin-top: 26px;">
           <article class="card">
             <span class="eyebrow">Current focus</span>
@@ -254,8 +300,9 @@
             <span class="eyebrow">Education & training</span>
             <h3>Academic background</h3>
             <ul class="muted">
-              <li>MSc Epidemiology & Biostatistics (with distinction).</li>
-              <li>BSc Public Health & Development Sciences.</li>
+              <li>PhD in Global Health at UNIGE (2022 - present)</li>
+              <li>MSc Epidemiology &amp; Biostatistics (with distinction).</li>
+              <li>BSc Public Health &amp; Development Sciences.</li>
               <li>Certificates: SIR modeling, QGIS, Disaster Management, First Aid.</li>
             </ul>
           </article>
@@ -423,6 +470,18 @@
     document.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
+    // Theme toggle persistence
+    const themeBtn = document.getElementById('themeToggle');
+    const THEME_KEY = 'altThemeV1';
+    function setBtnLabel(){ themeBtn && (themeBtn.textContent = document.body.classList.contains('alt') ? 'Luxe Dark' : 'Clean Light'); }
+    if (localStorage.getItem(THEME_KEY) === '1') { document.body.classList.add('alt'); }
+    setBtnLabel();
+    themeBtn && themeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('alt');
+      localStorage.setItem(THEME_KEY, document.body.classList.contains('alt') ? '1' : '0');
+      setBtnLabel();
+    });
+
     // Avatar loader with multiple fallbacks
     const avImg = document.getElementById('avatarImg');
     const avFB = document.getElementById('avatarFallback');
@@ -482,3 +541,4 @@
 </script>
 </body>
 </html>
+
